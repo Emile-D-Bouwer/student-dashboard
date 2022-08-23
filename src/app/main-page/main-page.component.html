@@ -1,0 +1,28 @@
+<div class="main-content">
+    <mat-grid-list cols="{{cols}}" gutterSize="10px" rowHeight="250px" translate="yes">
+        <a href="{{student.id}}" *ngFor="let student of students">
+            <mat-grid-tile *ngIf="student.type == 'student'">
+                <mat-card class="studentList" >
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{ student.name }} {{ student.surname }}</mat-card-title>
+                        <mat-card-subtitle>{{ student.id }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            Name: {{ student.name }} <br>
+                            Surname: {{ student.surname }} <br>
+                            ID: {{ student.id }} <br>
+                            GPA: {{ student.GPA }} <br>
+                            Course: {{ student.course }} <br>
+                            type: {{student.type}}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+
+            </mat-grid-tile>
+
+        </a>
+    </mat-grid-list>
+
+</div>

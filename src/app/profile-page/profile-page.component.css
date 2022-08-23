@@ -1,0 +1,12 @@
+/* centre div */
+.profile-page {
+    text-align: center;
+}
+.studentProfile{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
