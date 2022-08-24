@@ -9,19 +9,28 @@ import { MaterialExampleModule } from '../material.module';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     SideNavComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialExampleModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
