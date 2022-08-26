@@ -4,34 +4,87 @@ import { Injectable } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
+
 export class HttpService 
 {
 
-    private url = "https://get.geojs.io/v1/ip/country.json?ip=8.8.8.8";
+    // GET request
+    private testurl = "https://get.geojs.io/v1/ip/country.json?ip=8.8.8.8";
 
+    private baseUrl = "http://localhost:8080/";
+
+   
+
+    private headers = { 'content-type': 'application/json'};
 
     constructor(private http: HttpClient) { }
 
-    GET(url = this.url) {
-        //opions
-        //,{observe: 'body', responseType: 'json'}
-        return this.http.get(url);
+    //GET
+    Get(endPointPath: string, subscriber: any, type: any, params?: HttpParams)
+    {    
+        //remove this  !!!!!!!!!!!!!!!!!!!!!!!!!
+        this.baseUrl = "https://get.geojs.io/v1/ip/country.json";
+
+       
+        this.http.get(this.baseUrl + endPointPath,{'params':params}).subscribe(
+        {
+                next: (next) => subscriber(next, type),
+                error: (error) => { console.log("error: "+error); }
+        }
+        );
+        
     }
 
-    private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+
+    //private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
 
 
-    POST(url = this.url, data: HttpParams) {
-        this.http.post<any>(url, data/*, {headers: this.headers}*/).subscribe({
-            next: data => {
-                console.log("Post data: "+data);
-            },
-            error: error => {              
-                console.error('There was an error!', error.message);
-            }
+    //POST params can be empty
+    //example params
+    // const params = new HttpParams()
+    // .set('para1', "value1")
+    // .set('para2',"value2");
 
+    //result
+    //http://localhost:3000/people?para1=value1&para2=value2
+
+
+
+    //ADD
+    Post(endPointPath: string,subscriber: any, Obj: object, params?: HttpParams)
+    {       
+        console.log("Sending: "+JSON.stringify(Obj));
+
+        this.http.post<any>(this.baseUrl + endPointPath, JSON.stringify(Obj), {'headers':this.headers, 'params':params}).subscribe(
+        {
+            next: subscriber,
+            error: (error) => { console.log("error: "+error); }
         });
     }
 
+
+
+
+    //UPDATE
+    Put(endPointPath: string,subscriber: any, Obj: object)
+    {    
+        console.log("Sending: "+JSON.stringify(Obj));
+
+        this.http.put<any>(this.baseUrl + endPointPath, JSON.stringify(Obj), {'headers':this.headers}).subscribe(
+        {
+            next: subscriber,
+            error: (error) => { console.log("error: "+error); }
+        });
+    }
+
+    //DELETE
+    Delete(endPointPath: string, subscriber: any)
+    {          
+        this.http.delete<any>(this.baseUrl + endPointPath, {'headers':this.headers}).subscribe(
+        {
+            next: subscriber,
+            error: (error) => { console.log("error: "+error); }
+        });
+    }
 
 }
